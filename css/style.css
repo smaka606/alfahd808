@@ -3192,7 +3192,10 @@ p {
 }
 
 .modal-content {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--border-radius-2xl);
     max-width: 500px;
     width: 100%;
@@ -4225,6 +4228,27 @@ html.dark-mode .skeleton {
 
 .product-card .product-image {
     position: relative; /* For the overlay */
+}
+
+/* --- Modal Enhancements --- */
+html.dark-mode .modal-content {
+    background: rgba(30, 41, 59, 0.6);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.modal-category {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-4);
+    padding: var(--spacing-2) var(--spacing-4);
+    background: rgba(0,0,0,0.05);
+    border-radius: var(--border-radius-md);
+    display: inline-block;
+}
+
+html.dark-mode .modal-category {
+    background: rgba(255,255,255,0.1);
+    color: var(--gray-400);
 }
 
 /* ==========================================================================
