@@ -685,7 +685,6 @@ p {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #0d7377 0%, #14a4a9 100%);
     overflow: hidden;
 }
 
@@ -1258,7 +1257,8 @@ p {
     transition: opacity var(--transition-base);
 }
 
-.product-card:hover .product-overlay {
+.product-card:hover .product-overlay,
+.product-card:focus-within .product-overlay {
     opacity: 1;
 }
 
@@ -1302,7 +1302,7 @@ p {
 
 /* Products Page Specific Styles */
 .page-header {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: none;
     color: var(--white);
     padding: calc(var(--spacing-16) + 80px) 0 var(--spacing-16) 0;
     text-align: center;
@@ -2335,7 +2335,7 @@ p {
 }
 
 .contact-card:hover .contact-icon {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.15) rotate(-8deg);
 }
 
 .contact-title {
@@ -3348,17 +3348,6 @@ p {
    ANIMATIONS & INTERACTIONS
    ========================================================================== */
 
-/* Scroll-based animations */
-.animate-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
-}
-
-.animate-on-scroll.animated {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 /* Hover animations for interactive elements */
 .hover-lift:hover {
@@ -3372,10 +3361,6 @@ p {
     will-change: transform, box-shadow;
 }
 
-.card-3d-hover:hover {
-    transform: perspective(1000px) rotateY(2deg) rotateX(1deg) scale(1.04);
-    box-shadow: var(--shadow-xl);
-}
 
 /* Apply a similar 3D effect to other cards site-wide for consistency */
 .feature-card:hover, .testimonial-card:hover, .team-card:hover, .value-card:hover, .contact-card:hover {
@@ -3778,3 +3763,639 @@ img {
 /* ==========================================================================
    END OF STYLESHEET
    ========================================================================== */
+
+/* === Enhancements === */
+
+/* ==========================================================================
+   DARK MODE STYLES
+   ========================================================================== */
+html.dark-mode {
+    /* Dark mode color palette */
+    --primary-color: #14a4a9;
+    --primary-dark: #0d7377;
+    --primary-light: #18c2c8;
+    --secondary-color: #fa7268;
+    --accent-color: #ffd23f;
+
+    --white: #0f172a;
+    --black: #f8fafc;
+    --gray-100: #1e293b;
+    --gray-200: #334155;
+    --gray-300: #475569;
+    --gray-400: #64748b;
+    --gray-500: #94a3b8;
+    --gray-600: #cbd5e1;
+    --gray-700: #e2e8f0;
+    --gray-800: #f8fafc;
+    --gray-900: #ffffff;
+
+    /* Adjust box shadows for dark mode */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+html.dark-mode body {
+    background-color: var(--white);
+    color: var(--gray-700);
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+html.dark-mode .navbar {
+    background: rgba(15, 23, 42, 0.85); /* dark-mode --white with opacity */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark-mode .navbar.scrolled {
+    background: rgba(15, 23, 42, 0.95);
+}
+
+html.dark-mode .nav-link {
+    color: var(--gray-600);
+}
+
+html.dark-mode .nav-link:hover,
+html.dark-mode .nav-link.active {
+    color: var(--primary-color);
+    background: rgba(20, 164, 169, 0.1);
+}
+
+html.dark-mode .logo-text {
+    color: var(--primary-color);
+}
+
+
+html.dark-mode .features,
+html.dark-mode .vision-mission,
+html.dark-mode .contact-form-section,
+html.dark-mode .faq-section {
+    background: #0a101f;
+}
+
+html.dark-mode .feature-card,
+html.dark-mode .product-card,
+html.dark-mode .testimonial-card,
+html.dark-mode .vm-card,
+html.dark-mode .value-card,
+html.dark-mode .team-card,
+html.dark-mode .contact-card,
+html.dark-mode .form-content,
+html.dark-mode .contact-info-card,
+html.dark-mode .faq-item,
+html.dark-mode .modal-content {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+}
+
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode h3,
+html.dark-mode h4,
+html.dark-mode h5,
+html.dark-mode h6 {
+    color: var(--gray-900);
+}
+
+
+html.dark-mode input,
+html.dark-mode textarea,
+html.dark-mode select {
+    background-color: var(--gray-100);
+    border-color: var(--gray-300);
+    color: var(--gray-800);
+}
+
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder {
+    color: var(--gray-500);
+}
+
+html.dark-mode input:focus,
+html.dark-mode textarea:focus,
+html.dark-mode select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(20, 164, 169, 0.2);
+}
+
+html.dark-mode .footer {
+    background: #0a101f; /* Slightly darker than body */
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark-mode .footer-description,
+html.dark-mode .footer-links a,
+html.dark-mode .contact-item,
+html.dark-mode .contact-item a {
+    color: var(--gray-500);
+}
+
+html.dark-mode .footer-links a:hover,
+html.dark-mode .contact-item a:hover {
+    color: var(--white);
+}
+
+
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--font-size-lg);
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--border-radius-md);
+    color: var(--gray-700);
+    line-height: 1;
+    transition: color var(--transition-base), transform var(--transition-base);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.2) rotate(15deg);
+}
+
+html.dark-mode .theme-toggle {
+    color: var(--gray-600);
+}
+
+/* ==========================================================================
+   UI MODERNIZATION (Glassmorphism & Neumorphism)
+   ========================================================================== */
+
+/* --- Footer (Glassmorphism) --- */
+.footer {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color), var(--primary-light));
+    background-size: 400% 400%;
+    animation: gradient-animation 15s ease infinite;
+    padding: var(--spacing-16) 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@keyframes gradient-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.footer .footer-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--border-radius-2xl);
+    padding: var(--spacing-10);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: var(--shadow-lg);
+}
+
+html.dark-mode .footer {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark-mode .footer .footer-content {
+    background: rgba(30, 41, 59, 0.25);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Product Cards (Glassmorphism) --- */
+.product-card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+html.dark-mode .product-card {
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Filter Buttons (Neumorphism) --- */
+.filter-btn {
+    border: none;
+    box-shadow: -4px -4px 8px var(--white), 4px 4px 8px rgba(94, 104, 121, 0.25);
+}
+
+.filter-btn:hover {
+    box-shadow: -2px -2px 4px var(--white), 2px 2px 4px rgba(94, 104, 121, 0.25);
+}
+
+.filter-btn.active {
+    box-shadow: inset -2px -2px 4px var(--white), inset 2px 2px 4px rgba(94, 104, 121, 0.25);
+    color: var(--primary-color);
+}
+
+.filter-btn:focus {
+    outline: none;
+}
+
+html.dark-mode .filter-btn {
+    background-color: var(--gray-100);
+    color: var(--gray-800);
+    box-shadow: -4px -4px 8px var(--gray-200), 4px 4px 8px #0a0e1a;
+}
+
+html.dark-mode .filter-btn:hover {
+    box-shadow: -2px -2px 4px var(--gray-200), 2px 2px 4px #0a0e1a;
+}
+
+html.dark-mode .filter-btn.active {
+    box-shadow: inset -2px -2px 4px var(--gray-200), inset 2px 2px 4px #0a0e1a;
+    color: var(--primary-light);
+}
+
+/* --- Micro-interactions --- */
+.hover-underline {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 4px; /* space for the underline */
+}
+
+.hover-underline::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hover-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+html.dark-mode .hover-underline::after {
+    background: var(--primary-light);
+}
+
+/* Icon Nudge */
+.social-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px) scale(1.15) rotate(8deg);
+    box-shadow: var(--shadow-md);
+}
+
+.choose-icon:hover, .value-icon:hover {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.feature-card:hover .feature-icon .icon-3d {
+    /* The icon already has a floating animation, this will enhance it on hover */
+    transform: translateY(-5px) scale(1.1) rotate(8deg);
+}
+
+/* ==========================================================================
+   PARALLAX EFFECT
+   ========================================================================== */
+.parallax-bg {
+    position: absolute;
+    top: -50%; /* Give it extra height to move into */
+    left: 0;
+    right: 0;
+    bottom: -50%;
+    z-index: -1;
+    will-change: transform;
+}
+
+.page-header-bg {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+}
+
+/* ==========================================================================
+   ANIMATED MESH GRADIENT
+   ========================================================================== */
+
+.hero-background {
+    background-color: var(--primary-dark);
+    overflow: hidden;
+}
+
+html.dark-mode .hero-background {
+    background-color: #0f172a;
+}
+
+.hero-background::before,
+.hero-background::after {
+    content: '';
+    position: absolute;
+    width: 60vmax;
+    height: 60vmax;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.3;
+    mix-blend-mode: screen;
+    z-index: 0;
+}
+
+.hero-background::before {
+    background: radial-gradient(circle, var(--accent-color), transparent 70%);
+    top: -20%;
+    left: -20%;
+    animation: move-gradient-1 25s ease-in-out infinite alternate;
+}
+
+.hero-background::after {
+    background: radial-gradient(circle, var(--secondary-color), transparent 70%);
+    bottom: -20%;
+    right: -20%;
+    animation: move-gradient-2 25s ease-in-out infinite alternate;
+}
+
+/* Ensure waves are on top of the gradient */
+.ocean-wave {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes move-gradient-1 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(100px, 50px) rotate(30deg); }
+}
+
+@keyframes move-gradient-2 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-100px, -50px) rotate(-30deg); }
+}
+
+/* ==========================================================================
+   SCROLL REVEAL ANIMATIONS
+   ========================================================================== */
+[data-animation] {
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+[data-animation="fade-in"] {
+    transform: translateY(30px);
+}
+
+[data-animation="slide-in-left"] {
+    transform: translateX(-100px);
+}
+
+[data-animation="slide-in-right"] {
+    transform: translateX(100px);
+}
+
+[data-animation="zoom-in"] {
+    transform: scale(0.9);
+}
+
+[data-animation].is-visible {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+
+/* ==========================================================================
+   PRODUCT CARD ENHANCEMENTS
+   ========================================================================== */
+
+/* --- Skeleton Loading --- */
+.skeleton {
+    opacity: 0.7;
+    animation: shimmer 1.5s linear infinite;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+}
+
+html.dark-mode .skeleton {
+    background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-300) 50%, var(--gray-200) 75%);
+    background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-image { height: 250px; border-radius: var(--border-radius-xl) var(--border-radius-xl) 0 0; }
+.skeleton-title { width: 70%; height: 1.25rem; margin: var(--spacing-4); border-radius: var(--border-radius-sm); }
+.skeleton-text { width: 90%; height: 0.875rem; margin: 0 var(--spacing-4) var(--spacing-4); border-radius: var(--border-radius-sm); }
+
+
+/* --- Enhanced Product Overlay --- */
+.product-card .product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-4);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    z-index: 2;
+    border-radius: var(--border-radius-xl); /* Match card's radius */
+}
+
+.product-card:hover .product-overlay {
+    opacity: 1;
+}
+
+.product-overlay .btn {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.product-card:hover .product-overlay .btn,
+.product-card:focus-within .product-overlay .btn {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.product-card:hover .product-overlay .btn:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.product-card:hover .product-overlay .btn:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.product-card .product-image {
+    position: relative; /* For the overlay */
+}
+
+/* ==========================================================================
+   LIVE CHAT WIDGET
+   ========================================================================== */
+.chat-widget-container {
+    position: fixed;
+    bottom: var(--spacing-6);
+    right: var(--spacing-6);
+    z-index: var(--z-modal);
+}
+
+.chat-fab {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: var(--white);
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-xl);
+    cursor: pointer;
+    border: none;
+    transition: transform var(--transition-base), background-color var(--transition-base);
+}
+
+.chat-fab:hover {
+    transform: scale(1.1);
+    background: var(--primary-dark);
+}
+
+.chat-panel {
+    position: absolute;
+    bottom: 80px; /* Above the FAB */
+    right: 0;
+    width: 350px;
+    max-width: calc(100vw - 32px);
+    height: 500px;
+    max-height: calc(100vh - 120px);
+    background: var(--white);
+    border-radius: var(--border-radius-2xl);
+    box-shadow: var(--shadow-2xl);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    visibility: hidden;
+    transform-origin: bottom right;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.chat-panel.active {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+html.dark-mode .chat-panel {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-4);
+    background: var(--primary-color);
+    color: var(--white);
+    flex-shrink: 0;
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+}
+
+.chat-header-actions button {
+    color: var(--white);
+    opacity: 0.8;
+    font-size: 1.2rem;
+}
+.chat-header-actions button:hover {
+    opacity: 1;
+}
+
+.chat-body {
+    flex-grow: 1;
+    padding: var(--spacing-4);
+    overflow-y: auto;
+}
+
+.chat-message {
+    margin-bottom: var(--spacing-4);
+    display: flex;
+}
+.chat-message p {
+    padding: var(--spacing-3) var(--spacing-4);
+    border-radius: var(--border-radius-lg);
+    max-width: 80%;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.chat-message.bot p {
+    background: var(--gray-200);
+    color: var(--gray-800);
+    border-bottom-left-radius: var(--border-radius-sm);
+}
+html.dark-mode .chat-message.bot p {
+    background: var(--gray-200);
+}
+
+
+.chat-message.user {
+    justify-content: flex-end;
+}
+.chat-message.user p {
+    background: var(--primary-color);
+    color: var(--white);
+    border-bottom-right-radius: var(--border-radius-sm);
+}
+
+.chat-typing-indicator {
+    padding: 0 var(--spacing-4) var(--spacing-2);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.chat-typing-indicator span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gray-400);
+    animation: typing-bubble 1.2s infinite ease-in-out;
+}
+.chat-typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.chat-typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing-bubble {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+.chat-footer {
+    display: flex;
+    padding: var(--spacing-4);
+    border-top: 1px solid var(--gray-200);
+    gap: var(--spacing-3);
+    flex-shrink: 0;
+}
+html.dark-mode .chat-footer {
+    border-top-color: var(--gray-200);
+}
+
+#chat-input {
+    flex-grow: 1;
+    border-radius: var(--border-radius-full);
+    border: 1px solid var(--gray-300);
+}
+#chat-send-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: var(--white);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+#chat-send-btn:hover {
+    background: var(--primary-dark);
+}

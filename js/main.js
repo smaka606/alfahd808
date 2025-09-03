@@ -151,6 +151,441 @@ function generateWhatsAppURL(message = '') {
 }
 
 // ==========================================================================
+// MAGNETIC BUTTONS EFFECT
+// ==========================================================================
+class MagneticFx {
+    constructor(elements) {
+        if (!elements || elements.length === 0) return;
+        this.elements = Array.from(elements);
+        this.threshold = 80;
+        this.animationFrameId = null;
+
+        if (window.innerWidth < 1024 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return; // Disable on tablets/mobile and for users who prefer reduced motion
+        }
+
+        window.addEventListener('mousemove', (e) => this.handleMove(e), { passive: true });
+    }
+
+    handleMove(e) {
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+        }
+
+        this.animationFrameId = requestAnimationFrame(() => {
+            const { clientX, clientY } = e;
+
+            for (const el of this.elements) {
+                const rect = el.getBoundingClientRect();
+                const elCenterX = rect.left + rect.width / 2;
+                const elCenterY = rect.top + rect.height / 2;
+
+                const distance = Math.hypot(clientX - elCenterX, clientY - elCenterY);
+
+                if (distance < this.threshold) {
+                    const dx = (clientX - elCenterX) * 0.3;
+                    const dy = (clientY - elCenterY) * 0.3;
+                    el.style.transform = `translate(${dx}px, ${dy}px)`;
+                    el.style.transition = 'transform 0.1s ease-out';
+                } else {
+                    el.style.transform = 'translate(0, 0)';
+                    el.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+                }
+            }
+        });
+    }
+}
+
+// ==========================================================================
+// THEME MANAGEMENT (Dark/Light Mode)
+// ==========================================================================
+
+class ThemeManager {
+    constructor() {
+        this.themeToggleBtn = document.getElementById('theme-toggle-btn');
+        this.init();
+    }
+
+    init() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        let currentTheme;
+        if (savedTheme) {
+            currentTheme = savedTheme;
+        } else {
+            const hour = new Date().getHours();
+            // Auto dark mode from 6 PM to 6 AM, or if system prefers dark
+            if ((hour < 6 || hour >= 18) || systemPrefersDark) {
+                currentTheme = 'dark';
+            } else {
+                currentTheme = 'light';
+            }
+        }
+
+        this.applyTheme(currentTheme);
+        this.setupEventListeners();
+    }
+
+    applyTheme(theme) {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+        } else {
+            document.documentElement.classList.remove('dark-mode');
+        }
+
+        if (this.themeToggleBtn) {
+            this.themeToggleBtn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+            this.themeToggleBtn.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
+        }
+
+        localStorage.setItem('theme', theme);
+    }
+
+    toggleTheme() {
+        const currentTheme = document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        this.applyTheme(newTheme);
+    }
+
+    setupEventListeners() {
+        if (this.themeToggleBtn) {
+            this.themeToggleBtn.addEventListener('click', () => this.toggleTheme());
+        }
+
+        // Listen for changes in system preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            this.applyTheme(e.matches ? 'dark' : 'light');
+        });
+    }
+}
+
+// ==========================================================================
+// SCROLL REVEAL ANIMATIONS
+// ==========================================================================
+class AnimationKit {
+    constructor() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return;
+        }
+        this.initScrollReveal();
+        this.initStaggerReveal();
+    }
+
+    initScrollReveal() {
+        const elementsToReveal = document.querySelectorAll('[data-animation]:not(.stagger-child)');
+        if (elementsToReveal.length === 0) return;
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const delay = el.dataset.delay || 0;
+                    setTimeout(() => {
+                        el.classList.add('is-visible');
+                    }, delay);
+                    observer.unobserve(el);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        elementsToReveal.forEach(el => observer.observe(el));
+    }
+
+    initStaggerReveal() {
+        const containers = document.querySelectorAll('.stagger-container');
+        if (containers.length === 0) return;
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const container = entry.target;
+                    const children = container.querySelectorAll('.stagger-child[data-animation]');
+                    const baseDelay = parseInt(container.dataset.staggerDelay) || 100;
+
+                    children.forEach((child, index) => {
+                        child.style.transitionDelay = `${index * baseDelay}ms`;
+                        child.classList.add('is-visible');
+                    });
+                    observer.unobserve(container);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        containers.forEach(container => observer.observe(container));
+    }
+}
+
+// ==========================================================================
+// PARALLAX CONTROLLER
+// ==========================================================================
+class ParallaxController {
+    constructor(elementsSelector) {
+        this.elements = document.querySelectorAll(elementsSelector);
+        if (this.elements.length === 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return;
+        }
+        this.animationFrameId = null;
+        window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+    }
+
+    handleScroll() {
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+        }
+
+        this.animationFrameId = requestAnimationFrame(() => {
+            const scrollY = window.scrollY;
+            this.elements.forEach(el => {
+                const speed = parseFloat(el.dataset.parallaxSpeed) || 0.4;
+                el.style.transform = `translateY(${scrollY * speed}px)`;
+            });
+        });
+    }
+}
+
+// ==========================================================================
+// CARD TILT EFFECT
+// ==========================================================================
+class CardTilt {
+    constructor(selector) {
+        this.elements = document.querySelectorAll(selector);
+        if (this.elements.length === 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return;
+        }
+
+        this.elements.forEach(el => {
+            el.addEventListener('mousemove', (e) => this.handleMove(e, el));
+            el.addEventListener('mouseleave', (e) => this.handleLeave(e, el));
+            el.addEventListener('mouseenter', (e) => this.handleEnter(e, el));
+        });
+    }
+
+    handleEnter(e, el) {
+        el.style.transition = 'transform 0.1s ease-out';
+    }
+
+    handleMove(e, el) {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const width = el.clientWidth;
+        const height = el.clientHeight;
+
+        const rotateX = (y / height - 0.5) * -20; // Max rotation 10deg
+        const rotateY = (x / width - 0.5) * 20;   // Max rotation 10deg
+
+        el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    }
+
+    handleLeave(e, el) {
+        el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        el.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+    }
+}
+
+// ==========================================================================
+// CHAT WIDGET
+// ==========================================================================
+class ChatWidget {
+    constructor() {
+        this.fab = document.getElementById('chat-fab');
+        this.panel = document.getElementById('chat-panel');
+        this.chatBody = document.getElementById('chat-body');
+        this.chatInput = document.getElementById('chat-input');
+        this.sendBtn = document.getElementById('chat-send-btn');
+        this.closeBtn = document.getElementById('close-chat-btn');
+        this.emailBtn = document.getElementById('email-transcript-btn');
+        this.typingIndicator = document.getElementById('typing-indicator');
+        this.fabOpenIcon = this.fab?.querySelector('.chat-icon-open');
+        this.fabCloseIcon = this.fab?.querySelector('.chat-icon-close');
+        this.isOpen = false;
+        this.messages = [];
+        this.storageKey = 'chat_history';
+        this.maxMessagesInStorage = 10;
+        if (!this.fab || !this.panel) return;
+        this.init();
+    }
+    init() {
+        this.loadMessages();
+        this.addEventListeners();
+    }
+    addEventListeners() {
+        this.fab.addEventListener('click', () => this.togglePanel());
+        this.closeBtn.addEventListener('click', () => this.closePanel());
+        this.sendBtn.addEventListener('click', () => this.sendMessage());
+        this.chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.sendMessage();
+            }
+        });
+        this.emailBtn.addEventListener('click', () => this.emailTranscript());
+    }
+    togglePanel() {
+        this.isOpen = !this.isOpen;
+        this.panel.classList.toggle('active');
+        if (this.fabOpenIcon && this.fabCloseIcon) {
+            this.fabOpenIcon.style.display = this.isOpen ? 'none' : 'block';
+            this.fabCloseIcon.style.display = this.isOpen ? 'block' : 'none';
+        }
+        if (this.isOpen) {
+            this.chatInput.focus();
+            this.scrollToBottom();
+            this.trapFocus(this.panel);
+        }
+    }
+
+    trapFocus(modal) {
+        const focusableElements = modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+
+        if (focusableElements.length === 0) return;
+
+        const firstFocusable = focusableElements[0];
+        const lastFocusable = focusableElements[focusableElements.length - 1];
+
+        modal.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                if (e.shiftKey) {
+                    if (document.activeElement === firstFocusable) {
+                        lastFocusable.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (document.activeElement === lastFocusable) {
+                        firstFocusable.focus();
+                        e.preventDefault();
+                    }
+                }
+            }
+        });
+    }
+    closePanel() {
+        if (!this.isOpen) return;
+        this.isOpen = false;
+        this.panel.classList.remove('active');
+        if (this.fabOpenIcon && this.fabCloseIcon) {
+            this.fabOpenIcon.style.display = 'block';
+            this.fabCloseIcon.style.display = 'none';
+        }
+    }
+    async sendMessage() {
+        const messageText = this.chatInput.value.trim();
+        if (!messageText) return;
+
+        this.addMessage(messageText, 'user');
+        this.chatInput.value = '';
+        this.showTypingIndicator();
+
+        try {
+            const response = await fetch('/.netlify/functions/gemini-chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: messageText,
+                    history: this.messages.slice(-11, -1) // Send last 10 messages (excluding current one)
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || `Server error: ${response.status}`);
+            }
+
+            const data = await response.json();
+            this.addMessage(data.reply, 'bot');
+
+        } catch (error) {
+            console.error('Error fetching chat response:', error);
+            this.addMessage(error.message || 'Sorry, I am having trouble connecting. Please try again in a moment.', 'bot');
+        } finally {
+            this.hideTypingIndicator();
+        }
+    }
+    addMessage(text, sender) {
+        const message = { text, sender };
+        this.messages.push(message);
+        const messageElement = document.createElement('div');
+        messageElement.className = `chat-message ${sender}`;
+        messageElement.innerHTML = `<p>${text}</p>`;
+        this.chatBody.appendChild(messageElement);
+        this.scrollToBottom();
+        this.saveMessages();
+    }
+    scrollToBottom() {
+        this.chatBody.scrollTop = this.chatBody.scrollHeight;
+    }
+    showTypingIndicator() {
+        this.typingIndicator.style.display = 'flex';
+        this.scrollToBottom();
+    }
+    hideTypingIndicator() {
+        this.typingIndicator.style.display = 'none';
+    }
+    saveMessages() {
+        const recentMessages = this.messages.slice(-this.maxMessagesInStorage);
+        localStorage.setItem(this.storageKey, JSON.stringify(recentMessages));
+    }
+    loadMessages() {
+        const savedMessages = localStorage.getItem(this.storageKey);
+        if (savedMessages) {
+            this.messages = JSON.parse(savedMessages);
+            if (this.messages.length > 0) {
+                 this.chatBody.innerHTML = '';
+            }
+            this.messages.forEach(msg => {
+                const messageElement = document.createElement('div');
+                messageElement.className = `chat-message ${msg.sender}`;
+                messageElement.innerHTML = `<p>${msg.text}</p>`;
+                this.chatBody.appendChild(messageElement);
+            });
+        }
+    }
+    async emailTranscript() {
+        const email = prompt("Please enter your email address to receive the transcript:");
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            if (email !== null) { // Don't alert if user cancelled
+               alert("Invalid email address.");
+            }
+            return;
+        }
+
+        const transcript = this.messages.map(msg => `${msg.sender.toUpperCase()}: ${msg.text}`).join('\n');
+
+        try {
+            // Show some feedback to the user
+            this.emailBtn.disabled = true;
+            this.emailBtn.innerText = '⏳';
+
+            const response = await fetch('/.netlify/functions/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, transcript }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to send email.');
+            }
+
+            alert("Transcript sent successfully!");
+
+        } catch (error) {
+            console.error('Error sending transcript:', error);
+            alert(`Error: ${error.message}`);
+        } finally {
+            // Restore button icon
+            this.emailBtn.disabled = false;
+            this.emailBtn.innerText = '✉️';
+        }
+    }
+}
+
+
+// ==========================================================================
 // PRELOADER MANAGEMENT
 // ==========================================================================
 
@@ -183,29 +618,6 @@ class PreloaderManager {
         const heroElements = document.querySelectorAll('.hero-text > *, .hero-visual');
         heroElements.forEach((element, index) => {
             addClassWithAnimation(element, 'animate-in', index * 100);
-        });
-        
-        // Initialize scroll-based animations
-        this.initScrollAnimations();
-    }
-    
-    initScrollAnimations() {
-        const animateElements = document.querySelectorAll('.animate-on-scroll');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '50px'
-        });
-        
-        animateElements.forEach(element => {
-            observer.observe(element);
         });
     }
 }
@@ -563,6 +975,78 @@ class StatisticsCounter {
 }
 
 // ==========================================================================
+// PRODUCT CARD RENDERER
+// ==========================================================================
+function createProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'product-card stagger-child';
+    card.dataset.animation = 'fade-in';
+    card.dataset.category = product.category;
+
+    // 1. Initial skeleton UI
+    card.innerHTML = `
+        <div class="product-image skeleton skeleton-image"></div>
+        <div class="product-info">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-text"></div>
+        </div>
+    `;
+
+    // 2. Preload the image in memory
+    const img = new Image();
+    img.src = product.image.fallback; // Preload the fallback, as it's guaranteed to work.
+
+    img.onload = () => {
+        // 3. Once loaded, replace the entire card content
+        const whatsappMessage = encodeURIComponent(`Hello, I’d like to inquire about ${product.name}.`);
+            const whatsappLink = `https://wa.me/${CONFIG.whatsappNumber}?text=${whatsappMessage}`;
+
+        // Using a template literal for the final content is clean and efficient.
+        card.innerHTML = `
+            <div class="product-image">
+                <picture>
+                  <source srcset="${product.image.webp}" type="image/webp">
+                  <img src="${product.image.fallback}" alt="${product.name}" loading="lazy" class="product-img-real">
+                </picture>
+                <div class="product-overlay">
+                    <button class="btn btn-sm btn-outline quick-view-btn">Quick View</button>
+                    <a href="${whatsappLink}" class="btn btn-sm btn-whatsapp" target="_blank">Order Now</a>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">${product.name}</h3>
+                <p class="product-description">${product.description}</p>
+            </div>
+        `;
+
+        // Find the button we just created and add the listener
+        const quickViewBtn = card.querySelector('.quick-view-btn');
+        if (quickViewBtn) {
+            quickViewBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                quickView(product); // Pass the full product object.
+            });
+        }
+    };
+
+    img.onerror = () => {
+        // Fallback content if image fails to load
+        card.innerHTML = `
+            <div class="product-image" style="height: 250px; display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
+                <span>Image not found</span>
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">${product.name}</h3>
+                <p class="product-description">${product.description}</p>
+            </div>
+        `;
+    };
+
+    return card;
+}
+
+
+// ==========================================================================
 // PRODUCTS FILTER (For Products Page)
 // ==========================================================================
 
@@ -632,58 +1116,41 @@ class ProductsFilter {
 
         const fragment = document.createDocumentFragment();
         products.forEach(product => {
-            const card = this.createProductCard(product);
-            // The event listener is now attached inside createProductCard
+            const card = createProductCard(product);
             fragment.appendChild(card);
         });
         this.productsGrid.appendChild(fragment);
     }
 
-    createProductCard(product) {
-        const card = document.createElement('div');
-        // Add 3D hover effect class
-        card.className = 'product-card card-3d-hover';
-        card.dataset.category = product.category;
-
-        const whatsappMessage = encodeURIComponent(`أهلاً، أريد الاستفسار عن منتج: ${product.name}`);
-        const whatsappLink = `https://wa.me/201143343338?text=${whatsappMessage}`;
-        const placeholderImage = 'images/about/product1.jpg';
-
-        card.innerHTML = `
-            <div class="product-image">
-                <img src="${placeholderImage}" alt="${product.name}" loading="lazy">
-                <div class="product-overlay">
-                    <div class="product-actions">
-                        <button class="product-action preview-btn">
-                            👁️ معاينة
-                        </button>
-                        <a href="${whatsappLink}" class="product-action whatsapp" target="_blank">
-                            📱 اطلب الآن
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="product-info">
-                <h3 class="product-title">${product.name}</h3>
-                <p class="product-description">منتج طازج وعالي الجودة</p>
-            </div>
-        `;
-
-        // Attach event listener for the preview button
-        const previewBtn = card.querySelector('.preview-btn');
-        if (previewBtn) {
-            previewBtn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent any parent handlers from firing
-                quickView(product); // Pass the whole product object
-            });
-        }
-
-        return card;
-    }
-
     updateActiveFilter(activeBtn) {
         this.filterBtns.forEach(btn => btn.classList.remove('active'));
         activeBtn.classList.add('active');
+    }
+}
+
+// ==========================================================================
+// PRODUCTS PREVIEW (For Home Page)
+// ==========================================================================
+class ProductsPreview {
+    constructor(products) {
+        this.grid = document.getElementById('products-preview-grid');
+        if (!this.grid || !products || products.length === 0) return;
+
+        this.products = products;
+        this.productsToShow = 4;
+        this.renderPreview();
+    }
+
+    renderPreview() {
+        const previewProducts = this.products.slice(0, this.productsToShow);
+        const fragment = document.createDocumentFragment();
+
+        previewProducts.forEach(product => {
+            const card = createProductCard(product);
+            fragment.appendChild(card);
+        });
+
+        this.grid.appendChild(fragment);
     }
 }
 
@@ -791,17 +1258,22 @@ function quickView(product) {
     const modalPrice = modal.querySelector('#modalPrice');
     const modalWhatsappBtn = modal.querySelector('#modalWhatsappBtn');
 
-    // Populate modal content
+    // Populate modal content with data from the product object
     if (modalTitle) modalTitle.textContent = product.name;
+
     if (modalImage) {
-        modalImage.src = 'images/about/product1.jpg'; // Using placeholder
+        // Use the actual product image
+        modalImage.src = product.image.fallback;
         modalImage.alt = product.name;
     }
+
     if (modalDescription) {
-        modalDescription.textContent = "منتج طازج وعالي الجودة، متوفر الآن لدى الفهد للمأكولات البحرية. اطلبه الآن!";
+        modalDescription.textContent = product.description;
     }
-    // Clear price field as we don't have price data
-    if (modalPrice) modalPrice.textContent = '';
+
+    if (modalPrice) {
+        modalPrice.textContent = product.price;
+    }
 
     // Update WhatsApp button link
     if (modalWhatsappBtn) {
@@ -1367,6 +1839,7 @@ class AlFahdApp {
     initializeComponents() {
         try {
             // Initialize core components
+            this.components.theme = new ThemeManager();
             this.components.preloader = new PreloaderManager();
             this.components.navigation = new NavigationManager();
             this.components.modal = new ModalManager();
@@ -1378,6 +1851,14 @@ class AlFahdApp {
             
             // Initialize page-specific components
             this.initializePageSpecificComponents();
+
+            // Initialize micro-interactions
+            const magneticButtons = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-whatsapp, .btn-whatsapp-large, .btn-outline');
+            this.components.magneticFx = new MagneticFx(magneticButtons);
+            this.components.animationKit = new AnimationKit();
+            this.components.parallaxController = new ParallaxController('.parallax-bg');
+            this.components.cardTilt = new CardTilt('.product-card');
+            this.components.chatWidget = new ChatWidget();
             
             // Make components globally available
             this.exposeGlobalComponents();
@@ -1394,25 +1875,40 @@ class AlFahdApp {
         }
     }
     
-    initializePageSpecificComponents() {
-        // Testimonials (Home page)
-        if (document.querySelector('.testimonials-slider')) {
-            this.components.testimonials = new TestimonialsCarousel();
-        }
-        
-        // Statistics counter (About page)
-        if (document.querySelector('.stat-number[data-target]')) {
-            this.components.statistics = new StatisticsCounter();
-        }
-        
-        // Products filter (Products page)
-        if (document.querySelector('.products-filter') && typeof productsData !== 'undefined') {
-            this.components.productsFilter = new ProductsFilter(productsData);
-        }
-        
-        // FAQ accordion (Contact page)
-        if (document.querySelector('.faq-item')) {
-            this.components.faq = new FAQAccordion();
+    async initializePageSpecificComponents() {
+        try {
+            const response = await fetch('data/products.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const products = await response.json();
+
+            // Testimonials (Home page)
+            if (document.querySelector('.testimonials-slider')) {
+                this.components.testimonials = new TestimonialsCarousel();
+            }
+
+            // Products Preview (Home page)
+            if (document.getElementById('products-preview-grid')) {
+                this.components.productsPreview = new ProductsPreview(products);
+            }
+
+            // Statistics counter (About page)
+            if (document.querySelector('.stat-number[data-target]')) {
+                this.components.statistics = new StatisticsCounter();
+            }
+
+            // Products filter (Products page)
+            if (document.querySelector('.products-filter')) {
+                this.components.productsFilter = new ProductsFilter(products);
+            }
+
+            // FAQ accordion (Contact page)
+            if (document.querySelector('.faq-item')) {
+                this.components.faq = new FAQAccordion();
+            }
+        } catch (error) {
+            console.error("Could not load product data:", error);
         }
     }
     

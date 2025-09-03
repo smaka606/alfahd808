@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "name": "اخطبوط",
+    "description": "أخطبوط طازج من أفضل المصادر، مثالي للشوي أو الطهي.",
+    "category": "squid",
+    "price": "يحدد حسب الوزن",
+    "image": {
+      "webp": "images/products/octopus.webp",
+      "fallback": "images/products/octopus.jpg"
+    }
+  },
+  {
+    "id": 2,
+    "name": "استاكوزا",
+    "description": "استاكوزا حية وطازجة، لتجربة طعام فاخرة.",
+    "category": "other",
+    "price": "يحدد حسب القطعة",
+    "image": {
+      "webp": "images/products/lobster.webp",
+      "fallback": "images/products/lobster.jpg"
+    }
+  },
+  {
+    "id": 3,
+    "name": "سالمون فيليه",
+    "description": "شرائح فيليه السلمون النرويجي الطازج، غني بالأوميجا 3.",
+    "category": "fish",
+    "price": "350 جنيه/كيلو",
+    "image": {
+      "webp": "images/products/salmon-fillet.webp",
+      "fallback": "images/products/salmon-fillet.jpg"
+    }
+  },
+  {
+    "id": 4,
+    "name": "جمبرى جامبو",
+    "description": "جمبري جامبو طازج، مثالي للمشويات والمقبلات.",
+    "category": "shrimp",
+    "price": "400 جنيه/كيلو",
+    "image": {
+      "webp": "images/products/jumbo-shrimp.webp",
+      "fallback": "images/products/jumbo-shrimp.jpg"
+    }
+  },
+  {
+    "id": 5,
+    "name": "كابوريا",
+    "description": "كابوريا طازجة من مياه البحر المتوسط.",
+    "category": "crab",
+    "price": "200 جنيه/كيلو",
+    "image": {
+      "webp": "images/products/crab.webp",
+      "fallback": "images/products/crab.jpg"
+    }
+  },
+  {
+    "id": 6,
+    "name": "سبيط",
+    "description": "سبيط طازج وشهي، مناسب لجميع وصفات الطهي.",
+    "category": "squid",
+    "price": "180 جنيه/كيلو",
+    "image": {
+      "webp": "images/products/squid.webp",
+      "fallback": "images/products/squid.jpg"
+    }
+  },
+  {
+    "id": 7,
+    "name": "سمك دنيس",
+    "description": "سمك دنيس طازج، مثالي للشوي في الفرن.",
+    "category": "fish",
+    "price": "220 جنيه/كيلو",
+    "image": {
+      "webp": "images/products/sea-bream.webp",
+      "fallback": "images/products/sea-bream.jpg"
+    }
+  },
+  {
+    "id": 8,
+    "name": "جندوفلى",
+    "description": "جندوفلي طازج، مثالي لشوربة المأكولات البحرية والباستا.",
+    "category": "other",
+    "price": "90 جنيه/كيلو",
+    "image": {
+      "webp": "images/products/clams.webp",
+      "fallback": "images/products/clams.jpg"
+    }
+  },
+  {
+    "id": 9,
+    "name": "سمك بورى",
+    "description": "سمك بوري طازج من مزارعنا الخاصة.",
+    "category": "fish",
+    "price": "120 جنيه/كيلو",
+    "image": {
+      "webp": "images/products/mullet.webp",
+      "fallback": "images/products/mullet.jpg"
+    }
+  },
+  {
+    "id": 10,
+    "name": "بلح بحر",
+    "description": "بلح البحر الطازج، رائع للطهي بالبخار أو مع الصلصات.",
+    "category": "other",
+    "price": "150 جنيه/كيلو",
+    "image": {
+      "webp": "images/products/mussels.webp",
+      "fallback": "images/products/mussels.jpg"
+    }
+  },
+  {
+    "id": 11,
+    "name": "سمك وقار",
+    "description": "سمك وقار طازج من البحر الأحمر، لحم أبيض وشهي.",
+    "category": "fish",
+    "price": "280 جنيه/كيلو",
+    "image": {
+      "webp": "images/products/grouper.webp",
+      "fallback": "images/products/grouper.jpg"
+    }
+  },
+  {
+    "id": 12,
+    "name": "كاليماري",
+    "description": "كاليماري طازج، مثالي للقلي أو الحشو.",
+    "category": "squid",
+    "price": "190 جنيه/كيلو",
+    "image": {
+      "webp": "images/products/calamari.webp",
+      "fallback": "images/products/calamari.jpg"
+    }
+  }
+]
