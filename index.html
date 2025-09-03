@@ -83,6 +83,7 @@
                 <a href="products.html" class="nav-link">منتجاتنا</a>
                 <a href="about.html" class="nav-link">من نحن</a>
                 <a href="contact.html" class="nav-link">اتصل بنا</a>
+                <button id="theme-toggle-btn" class="nav-link theme-toggle" aria-label="Switch to dark mode">🌙</button>
                 <a href="https://wa.me/201143343338" class="nav-link whatsapp-nav" target="_blank">
                     <i class="whatsapp-icon">📱</i> واتساب
                 </a>
@@ -98,7 +99,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-background">
+    <div class="hero-background parallax-bg" data-parallax-speed="0.4">
             <div class="ocean-wave wave1"></div>
             <div class="ocean-wave wave2"></div>
             <div class="ocean-wave wave3"></div>
@@ -156,8 +157,8 @@
                 <p class="section-subtitle">أسباب تخلينا الخيار الأول للمأكولات البحرية</p>
             </div>
             
-            <div class="features-grid">
-                <div class="feature-card">
+            <div class="features-grid stagger-container" data-stagger-delay="100">
+                <div class="feature-card stagger-child" data-animation="fade-in">
                     <div class="feature-icon">
                         <div class="icon-3d">🐟</div>
                     </div>
@@ -165,7 +166,7 @@
                     <p class="feature-text">كل منتجاتنا طازجة من البحر لحد بيتك، بنضمن لك الجودة والطعم الأصلي</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card stagger-child" data-animation="fade-in">
                     <div class="feature-icon">
                         <div class="icon-3d">🚚</div>
                     </div>
@@ -173,7 +174,7 @@
                     <p class="feature-text">خدمة توصيل في نفس اليوم لكل أنحاء القاهرة والإسكندرية</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card stagger-child" data-animation="fade-in">
                     <div class="feature-icon">
                         <div class="icon-3d">💎</div>
                     </div>
@@ -181,7 +182,7 @@
                     <p class="feature-text">منتجاتنا مختارة بعناية من أفضل مصادر الصيد في البحر المتوسط</p>
                 </div>
                 
-                <div class="feature-card">
+                <div class="feature-card stagger-child" data-animation="fade-in">
                     <div class="feature-icon">
                         <div class="icon-3d">💰</div>
                     </div>
@@ -195,67 +196,13 @@
     <!-- Products Preview Section -->
     <section class="products-preview">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-animation="fade-in">
                 <h2 class="section-title">منتجاتنا المميزة</h2>
                 <p class="section-subtitle">مجموعة مختارة من أجود المأكولات البحرية</p>
             </div>
             
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="images/about/product1.jpg" alt="سمك بلطي طازج">
-                        <div class="product-overlay">
-                            <a href="https://wa.me/201143343338?text=أهلاً، أريد أستفسر عن السمك البلطي" 
-                               class="product-btn" target="_blank">اطلب الآن</a>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">سمك بلطي طازج</h3>
-                        <p class="product-price">من 80 جنيه/كيلو</p>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="images/about/product1.jpg" alt="جمبري جامبو">
-                        <div class="product-overlay">
-                            <a href="https://wa.me/201143343338?text=أهلاً، أريد أستفسر عن الجمبري الجامبو" 
-                               class="product-btn" target="_blank">اطلب الآن</a>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">جمبري جامبو</h3>
-                        <p class="product-price">من 250 جنيه/كيلو</p>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="images/about/product1.jpg" alt="كابوريا طازجة">
-                        <div class="product-overlay">
-                            <a href="https://wa.me/201143343338?text=أهلاً، أريد أستفسر عن الكابوريا" 
-                               class="product-btn" target="_blank">اطلب الآن</a>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">كابوريا طازجة</h3>
-                        <p class="product-price">من 200 جنيه/كيلو</p>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="images/about/product1.jpg" alt="سمك دنيس">
-                        <div class="product-overlay">
-                            <a href="https://wa.me/201143343338?text=أهلاً، أريد أستفسر عن سمك الدنيس" 
-                               class="product-btn" target="_blank">اطلب الآن</a>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">سمك دنيس</h3>
-                        <p class="product-price">من 120 جنيه/كيلو</p>
-                    </div>
-                </div>
+            <div class="products-grid stagger-container" id="products-preview-grid" data-stagger-delay="100">
+                <!-- Product cards will be dynamically inserted here -->
             </div>
             
             <div class="section-footer">
@@ -270,12 +217,12 @@
     <!-- Testimonials Section -->
     <section class="testimonials">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-animation="fade-in">
                 <h2 class="section-title">آراء عملائنا</h2>
                 <p class="section-subtitle">إيه اللي بيقوله عملاءنا عنا</p>
             </div>
             
-            <div class="testimonials-slider">
+            <div class="testimonials-slider" data-animation="zoom-in">
                 <div class="testimonial-card active">
                     <div class="testimonial-content">
                         <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
@@ -334,7 +281,7 @@
     <!-- CTA Section -->
     <section class="cta">
         <div class="container">
-            <div class="cta-content">
+            <div class="cta-content" data-animation="zoom-in">
                 <h2 class="cta-title">جاهز تطلب أطزج مأكولات بحرية؟</h2>
                 <p class="cta-text">اتصل بنا دلوقتي واطلب احتياجاتك، هنوصلها لحد بيتك في أسرع وقت</p>
                 <div class="cta-buttons">
@@ -374,20 +321,20 @@
                 <div class="footer-section">
                     <h4 class="footer-title">روابط سريعة</h4>
                     <ul class="footer-links">
-                        <li><a href="#home">الرئيسية</a></li>
-                        <li><a href="products.html">منتجاتنا</a></li>
-                        <li><a href="about.html">من نحن</a></li>
-                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="#home" class="hover-underline">الرئيسية</a></li>
+                        <li><a href="products.html" class="hover-underline">منتجاتنا</a></li>
+                        <li><a href="about.html" class="hover-underline">من نحن</a></li>
+                        <li><a href="contact.html" class="hover-underline">اتصل بنا</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4 class="footer-title">منتجاتنا</h4>
                     <ul class="footer-links">
-                        <li><a href="products.html#fish">أسماك طازجة</a></li>
-                        <li><a href="products.html#shrimp">جمبري</a></li>
-                        <li><a href="products.html#crab">كابوريا</a></li>
-                        <li><a href="products.html#squid">كاليماري</a></li>
+                        <li><a href="products.html#fish" class="hover-underline">أسماك طازجة</a></li>
+                        <li><a href="products.html#shrimp" class="hover-underline">جمبري</a></li>
+                        <li><a href="products.html#crab" class="hover-underline">كابوريا</a></li>
+                        <li><a href="products.html#squid" class="hover-underline">كاليماري</a></li>
                     </ul>
                 </div>
                 
@@ -435,5 +382,38 @@
 
     <!-- JavaScript -->
     <script src="js/main.js"></script>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget-container">
+        <!-- FAB to open/close chat -->
+        <button id="chat-fab" class="chat-fab" aria-label="Open Chat">
+            <span class="chat-icon-open">💬</span>
+            <span class="chat-icon-close" style="display: none;">❌</span>
+        </button>
+
+        <!-- Chat Panel -->
+        <div id="chat-panel" class="chat-panel">
+            <div class="chat-header">
+                <h3>الفهد للمساعدة</h3>
+                <div class="chat-header-actions">
+                    <button id="email-transcript-btn" aria-label="Email Transcript">✉️</button>
+                    <button id="close-chat-btn" aria-label="Close Chat">－</button>
+                </div>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <!-- Messages will be injected here -->
+                <div class="chat-message bot">
+                    <p>أهلاً بك! كيف يمكنني مساعدتك اليوم؟</p>
+                </div>
+            </div>
+            <div class="chat-typing-indicator" id="typing-indicator" style="display: none;">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="chat-footer">
+                <input type="text" id="chat-input" placeholder="اكتب رسالتك هنا...">
+                <button id="chat-send-btn" aria-label="Send Message">➤</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

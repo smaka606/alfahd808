@@ -32,6 +32,7 @@
                 <a href="products.html" class="nav-link">منتجاتنا</a>
                 <a href="about.html" class="nav-link active">من نحن</a>
                 <a href="contact.html" class="nav-link">اتصل بنا</a>
+                <button id="theme-toggle-btn" class="nav-link theme-toggle" aria-label="Switch to dark mode">🌙</button>
                 <a href="https://wa.me/201143343338" class="nav-link whatsapp-nav" target="_blank">
                     <i class="whatsapp-icon">📱</i> واتساب
                 </a>
@@ -47,6 +48,7 @@
 
     <!-- Page Header -->
     <section class="page-header">
+        <div class="parallax-bg page-header-bg" data-parallax-speed="0.5"></div>
         <div class="container">
             <div class="header-content">
                 <h1 class="page-title">من نحن</h1>
@@ -342,20 +344,20 @@
                 <div class="footer-section">
                     <h4 class="footer-title">روابط سريعة</h4>
                     <ul class="footer-links">
-                        <li><a href="index.html">الرئيسية</a></li>
-                        <li><a href="products.html">منتجاتنا</a></li>
-                        <li><a href="about.html">من نحن</a></li>
-                        <li><a href="contact.html">اتصل بنا</a></li>
+                        <li><a href="index.html" class="hover-underline">الرئيسية</a></li>
+                        <li><a href="products.html" class="hover-underline">منتجاتنا</a></li>
+                        <li><a href="about.html" class="hover-underline">من نحن</a></li>
+                        <li><a href="contact.html" class="hover-underline">اتصل بنا</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4 class="footer-title">منتجاتنا</h4>
                     <ul class="footer-links">
-                        <li><a href="products.html#fish">أسماك طازجة</a></li>
-                        <li><a href="products.html#shrimp">جمبري</a></li>
-                        <li><a href="products.html#crab">كابوريا</a></li>
-                        <li><a href="products.html#squid">كاليماري</a></li>
+                        <li><a href="products.html#fish" class="hover-underline">أسماك طازجة</a></li>
+                        <li><a href="products.html#shrimp" class="hover-underline">جمبري</a></li>
+                        <li><a href="products.html#crab" class="hover-underline">كابوريا</a></li>
+                        <li><a href="products.html#squid" class="hover-underline">كاليماري</a></li>
                     </ul>
                 </div>
                 
@@ -403,5 +405,38 @@
 
     <!-- JavaScript -->
     <script src="js/main.js"></script>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget-container">
+        <!-- FAB to open/close chat -->
+        <button id="chat-fab" class="chat-fab" aria-label="Open Chat">
+            <span class="chat-icon-open">💬</span>
+            <span class="chat-icon-close" style="display: none;">❌</span>
+        </button>
+
+        <!-- Chat Panel -->
+        <div id="chat-panel" class="chat-panel">
+            <div class="chat-header">
+                <h3>الفهد للمساعدة</h3>
+                <div class="chat-header-actions">
+                    <button id="email-transcript-btn" aria-label="Email Transcript">✉️</button>
+                    <button id="close-chat-btn" aria-label="Close Chat">－</button>
+                </div>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <!-- Messages will be injected here -->
+                <div class="chat-message bot">
+                    <p>أهلاً بك! كيف يمكنني مساعدتك اليوم؟</p>
+                </div>
+            </div>
+            <div class="chat-typing-indicator" id="typing-indicator" style="display: none;">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="chat-footer">
+                <input type="text" id="chat-input" placeholder="اكتب رسالتك هنا...">
+                <button id="chat-send-btn" aria-label="Send Message">➤</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
