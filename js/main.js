@@ -1,3 +1,120 @@
+const productsData = [
+ { "id": 1, "name": "اخطبوط", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 2, "name": "استاكوزا كندى", "description": "منتج طازج وجودة عالية", "category": "crab", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 3, "name": "استاكوزا", "description": "منتج طازج وجودة عالية", "category": "crab", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 4, "name": "انشوجا", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 5, "name": "بطارخ", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 6, "name": "بلاك كود", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 7, "name": "بلح بحر مفتوح", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 8, "name": "بلح بحر مقفول", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 9, "name": "تونه لوين", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 10, "name": "تونه ساكو", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 11, "name": "جمبرى ديل 20/16", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 12, "name": "جمبرى ديل 25/21", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 13, "name": "جمبرى ديل 30/26", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 14, "name": "جمبرى ديل 40/30", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 15, "name": "جمبرى قشر 15/13 - U15", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 16, "name": "جمبرى قشر 8/12 - U10", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 17, "name": "جمبرى قشر 20/16", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 18, "name": "جمبرى قشر 25/21", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 19, "name": "جمبرى قشر 30/20", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 20, "name": "جمبرى قشر 40/30", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 21, "name": "جمبرى قشر 50/40", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 22, "name": "جمبرى قشر 60/50", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 23, "name": "جمبرى لحم 110/90", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 24, "name": "جمبرى لحم 15/11", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 25, "name": "جمبرى لحم 15/13 - U15", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 26, "name": "جمبرى لحم 20/16", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 27, "name": "جمبرى لحم 25/21", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 28, "name": "جمبرى لحم 30/26", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 29, "name": "جمبرى لحم 35/31", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 30, "name": "جمبرى لحم 40/30", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 31, "name": "جمبرى لحم 50/40", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 32, "name": "جمبرى لحم 60/50", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 33, "name": "جمبرى لحم 70/60", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 34, "name": "جمبرى لحم 90/70", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 35, "name": "جمبرى لحم 200/100", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 36, "name": "جمبرى قشر مكس صغير", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 37, "name": "جمبرى قشر مكس كبير", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 38, "name": "جندوفلى", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 39, "name": "ديول استاكوزا", "description": "منتج طازج وجودة عالية", "category": "crab", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 40, "name": "ديول استاكوزا كندى", "description": "منتج طازج وجودة عالية", "category": "crab", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 41, "name": "رنجه سايبه", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 42, "name": "رنجه فاكيوم", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 43, "name": "رنجه فيليه", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 44, "name": "رؤوس كاليمارى", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 45, "name": "سالمون بورشن", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 46, "name": "سالمون دوبريه", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 47, "name": "سالمون طولى بالجلد", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 48, "name": "سالمون طولى بدون جلد", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 49, "name": "سالمون فريش طيران", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 50, "name": "سالمون فيليه", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 51, "name": "سالمون هول", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 52, "name": "سالمون هول فريش", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 53, "name": "سبيط", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 54, "name": "سبيط بالراس", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 55, "name": "سبيط بدون راس", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 56, "name": "سبيط دهور", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 57, "name": "سردين", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 58, "name": "سمك باسا خمسات", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 59, "name": "سمك باسا كيلوهات", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 60, "name": "سمك بربونى", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 61, "name": "سمك بساريا", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 62, "name": "سمك بلطى", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 63, "name": "سمك بلطى فيليه", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 64, "name": "سمك بورى", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 65, "name": "سمك تونه", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 66, "name": "سمك ثعابين", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 67, "name": "سمك دنيس", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 68, "name": "سمك سي باص", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 69, "name": "سمك فيليه قشر بياض", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 70, "name": "سمك قاروص", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 71, "name": "سمك قاروص فيليه", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 72, "name": "سمك لوط", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 73, "name": "سمك لوط فيليه", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 74, "name": "سمك مرجان", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 75, "name": "سمك مكرونه", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 76, "name": "سمك مكريل", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 77, "name": "سمك مكريل فيليه", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 78, "name": "سمك موسى", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 79, "name": "سمك هامتشى", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 80, "name": "سمك هامور", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 81, "name": "سمك وقار", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 82, "name": "سوفت شيل", "description": "منتج طازج وجودة عالية", "category": "crab", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 83, "name": "سى سكالوب", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 84, "name": "شوربه سى فود", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 85, "name": "صوابع كابوريا تايلاندى", "description": "منتج طازج وجودة عالية", "category": "crab", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 86, "name": "صوابع كابوريا صينى", "description": "منتج طازج وجودة عالية", "category": "crab", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 87, "name": "صوابع كابوريا هندى", "description": "منتج طازج وجودة عالية", "category": "crab", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 88, "name": "فسيخ", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 89, "name": "قشر جمبرى", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 90, "name": "كابوريا دكر", "description": "منتج طازج وجودة عالية", "category": "crab", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 91, "name": "كابوريا نتى", "description": "منتج طازج وجودة عالية", "category": "crab", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 92, "name": "كاليمارى ابيض بلدي بالرأس", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 93, "name": "كاليمارى ابيض بلدي صولو", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 94, "name": "كاليمارى حمراء بلدي اقماع", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 95, "name": "كاليمارى صينى", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 96, "name": "كاليمارى حلقات", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 97, "name": "كاليمارى فريش", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 98, "name": "كفيار روسى", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 99, "name": "كينج كراب", "description": "منتج طازج وجودة عالية", "category": "crab", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 100, "name": "ملح بحر", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 101, "name": "ديوك رومى", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 102, "name": "ايس بوكس - صندوق فل", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 103, "name": "بطارخ", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 104, "name": "جمبرى بروكن", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 105, "name": "جمبرى قشر 70/60", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 106, "name": "بالتات بلاستيك", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 107, "name": "جمبري بيبى", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 108, "name": "جمبري قشر U7", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 109, "name": "جمبرى قشر U/8", "description": "منتج طازج وجودة عالية", "category": "shrimp", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 110, "name": "بيض كفيار", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 111, "name": "كفيار", "description": "منتج طازج وجودة عالية", "category": "other", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 112, "name": "سبيط بدون راس وجناح", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 113, "name": "شك صينى مكريل", "description": "منتج طازج وجودة عالية", "category": "fish", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } },
+ { "id": 114, "name": "كاليمارى بالخارج", "description": "منتج طازج وجودة عالية", "category": "squid", "price": "—", "image": { "webp": "images/placeholders/product.webp", "fallback": "images/placeholders/product.jpg" } }
+];
+
 /**
  * AL FAHD SEAFOOD - MAIN JAVASCRIPT FILE
  * Modern interactive features with smooth animations and performance optimization
@@ -1875,40 +1992,34 @@ class AlFahdApp {
         }
     }
     
-    async initializePageSpecificComponents() {
-        try {
-            const response = await fetch('data/products.json');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const products = await response.json();
+    initializePageSpecificComponents() {
+        // Testimonials (Home page)
+        if (document.querySelector('.testimonials-slider')) {
+            this.components.testimonials = new TestimonialsCarousel();
+        }
 
-            // Testimonials (Home page)
-            if (document.querySelector('.testimonials-slider')) {
-                this.components.testimonials = new TestimonialsCarousel();
-            }
+        // Products Preview (Home page)
+        if (document.getElementById('products-preview-grid')) {
+            this.components.productsPreview = new ProductsPreview(productsData);
+        }
 
-            // Products Preview (Home page)
-            if (document.getElementById('products-preview-grid')) {
-                this.components.productsPreview = new ProductsPreview(products);
+        // Statistics counter (About page)
+        if (document.querySelector('.stat-number[data-target]')) {
+            const productTypeCounter = document.getElementById('product-type-counter');
+            if (productTypeCounter) {
+                productTypeCounter.dataset.target = productsData.length;
             }
+            this.components.statistics = new StatisticsCounter();
+        }
 
-            // Statistics counter (About page)
-            if (document.querySelector('.stat-number[data-target]')) {
-                this.components.statistics = new StatisticsCounter();
-            }
+        // Products filter (Products page)
+        if (document.querySelector('.products-filter')) {
+            this.components.productsFilter = new ProductsFilter(productsData);
+        }
 
-            // Products filter (Products page)
-            if (document.querySelector('.products-filter')) {
-                this.components.productsFilter = new ProductsFilter(products);
-            }
-
-            // FAQ accordion (Contact page)
-            if (document.querySelector('.faq-item')) {
-                this.components.faq = new FAQAccordion();
-            }
-        } catch (error) {
-            console.error("Could not load product data:", error);
+        // FAQ accordion (Contact page)
+        if (document.querySelector('.faq-item')) {
+            this.components.faq = new FAQAccordion();
         }
     }
     
