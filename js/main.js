@@ -340,23 +340,50 @@ class ThemeManager {
             }
         }
 
-        this.applyTheme(currentTheme);
+        this.applyTheme(currentTheme, true); // Pass true for initial load
         this.setupEventListeners();
     }
 
-    applyTheme(theme) {
-        if (theme === 'dark') {
+    applyTheme(theme, isInitial = false) {
+        const isDark = theme === 'dark';
+        if (isDark) {
             document.documentElement.classList.add('dark-mode');
         } else {
             document.documentElement.classList.remove('dark-mode');
         }
 
         if (this.themeToggleBtn) {
-            this.themeToggleBtn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
-            this.themeToggleBtn.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
+            this.themeToggleBtn.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} mode`);
+
+            // On initial load, just set the final state without transition
+            if (isInitial) {
+                this.themeToggleBtn.style.transition = 'none';
+                const sunIcon = this.themeToggleBtn.querySelector('.sun-icon');
+                const moonIcon = this.themeToggleBtn.querySelector('.moon-icon');
+                if (sunIcon && moonIcon) {
+                    sunIcon.style.transition = 'none';
+                    moonIcon.style.transition = 'none';
+                }
+            }
+
+            // The visual update is now handled by CSS classes, which is more robust.
+            // The JS only needs to toggle the main class on the HTML element.
         }
 
         localStorage.setItem('theme', theme);
+
+        // Re-enable transitions after the initial setup
+        if (isInitial && this.themeToggleBtn) {
+            setTimeout(() => {
+                this.themeToggleBtn.style.transition = '';
+                const sunIcon = this.themeToggleBtn.querySelector('.sun-icon');
+                const moonIcon = this.themeToggleBtn.querySelector('.moon-icon');
+                if (sunIcon && moonIcon) {
+                    sunIcon.style.transition = '';
+                    moonIcon.style.transition = '';
+                }
+            }, 50);
+        }
     }
 
     toggleTheme() {
@@ -1100,64 +1127,46 @@ function createProductCard(product) {
     card.dataset.animation = 'fade-in';
     card.dataset.category = product.category;
 
-    // 1. Initial skeleton UI
+    const fallbackImage = 'images/placeholders/product.jpg';
+    const productImage = product.image && product.image.fallback !== 'images/placeholders/product-placeholder.jpg'
+        ? product.image.fallback
+        : fallbackImage;
+    const productWebp = product.image && product.image.webp !== 'images/placeholders/product-placeholder.webp'
+        ? product.image.webp
+        : 'images/placeholders/product.webp'; // Assuming a .webp version exists
+
+    const whatsappMessage = `أهلاً، أود طلب المنتج التالي: ${product.name}`;
+    const whatsappLink = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
     card.innerHTML = `
-        <div class="product-image skeleton skeleton-image"></div>
-        <div class="product-info">
-            <div class="skeleton skeleton-title"></div>
-            <div class="skeleton skeleton-text"></div>
+        <div class="product-image-wrapper">
+            <picture>
+                <source srcset="${productWebp}" type="image/webp">
+                <img src="${productImage}" alt="${product.name}" loading="lazy" class="product-img" onerror="this.onerror=null;this.src='${fallbackImage}';">
+            </picture>
+        </div>
+        <div class="product-content">
+            <h3 class="product-title">${product.name}</h3>
+            <p class="product-description">${product.description}</p>
+            <div class="product-buttons">
+                <button class="btn btn-primary preview-btn">
+                    <i class="icon-eye"></i> <span>معاينة</span>
+                </button>
+                <a href="${whatsappLink}" class="btn btn-whatsapp order-btn" target="_blank">
+                    <i class="icon-whatsapp"></i> <span>اطلب عبر واتساب</span>
+                </a>
+            </div>
         </div>
     `;
 
-    // 2. Preload the image in memory
-    const img = new Image();
-    img.src = product.image.fallback; // Preload the fallback, as it's guaranteed to work.
-
-    img.onload = () => {
-        // 3. Once loaded, replace the entire card content
-            const whatsappMessage = encodeURIComponent(`مرحبا، أود الاستفسار عن ${product.name} (الفئة: ${product.category} - السعر: ${product.price}).`);
-            const whatsappLink = `https://wa.me/${CONFIG.whatsappNumber}?text=${whatsappMessage}`;
-
-        // Using a template literal for the final content is clean and efficient.
-        card.innerHTML = `
-            <div class="product-image">
-                <picture>
-                  <source srcset="${product.image.webp}" type="image/webp">
-                  <img src="${product.image.fallback}" alt="${product.name}" loading="lazy" class="product-img-real">
-                </picture>
-                <div class="product-overlay">
-                        <button class="btn btn-sm btn-outline quick-view-btn">Preview</button>
-                        <a href="${whatsappLink}" class="btn btn-sm btn-whatsapp" target="_blank">Order on WhatsApp</a>
-                </div>
-            </div>
-            <div class="product-info">
-                <h3 class="product-title">${product.name}</h3>
-                <p class="product-description">${product.description}</p>
-            </div>
-        `;
-
-        // Find the button we just created and add the listener
-        const quickViewBtn = card.querySelector('.quick-view-btn');
-        if (quickViewBtn) {
-            quickViewBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                quickView(product); // Pass the full product object.
-            });
-        }
-    };
-
-    img.onerror = () => {
-        // Fallback content if image fails to load
-        card.innerHTML = `
-            <div class="product-image" style="height: 250px; display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
-                <span>Image not found</span>
-            </div>
-            <div class="product-info">
-                <h3 class="product-title">${product.name}</h3>
-                <p class="product-description">${product.description}</p>
-            </div>
-        `;
-    };
+    // Add event listener for the preview button
+    const previewBtn = card.querySelector('.preview-btn');
+    if (previewBtn) {
+        previewBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            quickView(product);
+        });
+    }
 
     return card;
 }
